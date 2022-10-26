@@ -12,7 +12,6 @@ client.on("message", (msg) => {
   };
 
   const collector = msg.createReactionCollector(filter, { time: 15000 });
-
   collector.on("collect", (reaction, user) => {});
 
   if (msg.content.startsWith("https://twitter.com/")) {
@@ -22,7 +21,7 @@ client.on("message", (msg) => {
     msg.react("🐦");
 
     msg
-      .awaitReactions(filter, { max: 1, time: 60000, errors: ["time"] })
+      .awaitReactions(filter, { max: 1, time: 60000, errors: ["time", "messageDelete"] })
       .then(() => {
         msg.delete({ timeout: "1000" });
         msg.channel.send(`From ${msg.author} | ${url.href}`);
